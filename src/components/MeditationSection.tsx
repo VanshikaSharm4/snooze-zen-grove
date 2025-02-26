@@ -7,16 +7,20 @@ import { Timer, Pause, Play } from "lucide-react";
 export const MeditationSection = () => {
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(300); // 5 minutes in seconds
-  const intervalRef = useRef<NodeJS.Timer>();
+  const intervalRef = useRef<number>();
 
   const toggleTimer = () => {
     if (isActive) {
-      clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     } else {
-      intervalRef.current = setInterval(() => {
+      intervalRef.current = window.setInterval(() => {
         setTime((prevTime) => {
           if (prevTime <= 1) {
-            clearInterval(intervalRef.current);
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+            }
             setIsActive(false);
             return 300;
           }
