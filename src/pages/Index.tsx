@@ -9,7 +9,7 @@ const Index = () => {
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-light text-wellness-charcoal text-center mb-12">
           <span className="text-sm uppercase tracking-wider block text-wellness-charcoal/70 mb-2">Welcome to</span>
-          Wellness Space
+          Swasthya
         </h1>
         
         <SleepSection />
