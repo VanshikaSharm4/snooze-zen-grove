@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { LucideYoga, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export const ActionButtons = () => {
   return (
@@ -9,7 +9,7 @@ export const ActionButtons = () => {
         className="h-24 bg-wellness-mint hover:bg-wellness-sage transition-all flex items-center justify-center gap-3 text-lg"
         onClick={() => console.log("Yoga trainer clicked")}
       >
-        <LucideYoga className="w-6 h-6" />
+        <Heart className="w-6 h-6" />
         Yoga Trainer
       </Button>
       <Button
