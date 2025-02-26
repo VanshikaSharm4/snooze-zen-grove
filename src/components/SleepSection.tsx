@@ -81,25 +81,25 @@ export const SleepSection = () => {
   };
 
   return (
-    <Card className="p-6 bg-wellness-cream/80 backdrop-blur-sm">
-      <h2 className="text-2xl font-semibold text-wellness-charcoal mb-6">Sleep Sounds</h2>
+    <Card className="p-6 bg-wellness-cream shadow-lg">
+      <h2 className="text-2xl font-bold text-wellness-charcoal mb-6">Sleep Sounds</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {sounds.map((sound) => (
           <Button
             key={sound.id}
             variant={selectedSound.id === sound.id ? "default" : "outline"}
             className={`h-24 flex flex-col items-center justify-center gap-2 transition-all ${
-              selectedSound.id === sound.id ? "bg-wellness-mint" : "hover:bg-wellness-sage/50"
+              selectedSound.id === sound.id ? "bg-wellness-mint text-wellness-charcoal font-medium" : "hover:bg-wellness-sage/50 text-wellness-charcoal"
             }`}
             onClick={() => changeSound(sound)}
           >
-            <span className="text-lg">{sound.name}</span>
+            <span className="text-lg font-medium">{sound.name}</span>
           </Button>
         ))}
       </div>
 
       <div className="flex flex-col gap-6">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 text-wellness-charcoal">
           <Volume2 className="w-6 h-6" />
           <Slider
             value={volume}
@@ -110,7 +110,7 @@ export const SleepSection = () => {
           />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 text-wellness-charcoal">
           <Timer className="w-6 h-6" />
           <Slider
             value={[timer]}
@@ -119,12 +119,12 @@ export const SleepSection = () => {
             step={5}
             className="flex-1"
           />
-          <span className="min-w-[4rem] text-right">{timer}m</span>
+          <span className="min-w-[4rem] text-right font-medium">{timer}m</span>
         </div>
 
         <Button
           size="lg"
-          className={`w-full ${isPlaying ? "bg-wellness-lavender" : "bg-wellness-mint"}`}
+          className={`w-full ${isPlaying ? "bg-wellness-lavender" : "bg-wellness-mint"} text-wellness-charcoal font-medium`}
           onClick={togglePlay}
         >
           {isPlaying ? <Pause className="mr-2" /> : <Play className="mr-2" />}

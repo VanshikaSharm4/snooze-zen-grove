@@ -77,20 +77,20 @@ export const MeditationSection = () => {
   };
 
   return (
-    <Card className="p-6 bg-wellness-cream/80 backdrop-blur-sm">
-      <h2 className="text-2xl font-semibold text-wellness-charcoal mb-6">Meditation</h2>
+    <Card className="p-6 bg-wellness-cream shadow-lg">
+      <h2 className="text-2xl font-bold text-wellness-charcoal mb-6">Meditation</h2>
       <div className="flex flex-col items-center gap-6">
-        <div className="text-6xl font-light text-wellness-charcoal">
+        <div className="text-6xl font-semibold text-wellness-charcoal">
           {formatTime(time)}
         </div>
         {isActive && (
-          <div className={`text-2xl font-light text-wellness-charcoal ${getBreatheAnimation()}`}>
+          <div className={`text-2xl font-medium text-wellness-charcoal ${getBreatheAnimation()}`}>
             {getBreatheText()}
           </div>
         )}
         <Button
           size="lg"
-          className={`w-48 ${isActive ? "bg-wellness-lavender" : "bg-wellness-mint"}`}
+          className={`w-48 ${isActive ? "bg-wellness-lavender" : "bg-wellness-mint"} text-wellness-charcoal font-medium`}
           onClick={toggleTimer}
         >
           {isActive ? <Pause className="mr-2" /> : <Play className="mr-2" />}
