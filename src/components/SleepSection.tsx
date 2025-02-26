@@ -11,8 +11,23 @@ export const SleepSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState([50]);
   const [timer, setTimer] = useState(30);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const timerRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    // Create audio element when component mounts
+    audioRef.current = new Audio(selectedSound.url);
+    audioRef.current.loop = true;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -21,15 +36,13 @@ export const SleepSection = () => {
   }, [volume]);
 
   useEffect(() => {
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
+    if (audioRef.current) {
+      audioRef.current.src = selectedSound.url;
+      if (isPlaying) {
+        audioRef.current.play();
       }
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-    };
-  }, []);
+    }
+  }, [selectedSound]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -40,10 +53,14 @@ export const SleepSection = () => {
         clearTimeout(timerRef.current);
       }
     } else {
-      audioRef.current.play();
+      audioRef.current.play().catch(error => {
+        console.error("Error playing audio:", error);
+      });
       if (timer > 0) {
         timerRef.current = setTimeout(() => {
-          audioRef.current?.pause();
+          if (audioRef.current) {
+            audioRef.current.pause();
+          }
           setIsPlaying(false);
         }, timer * 60 * 1000);
       }
@@ -53,10 +70,13 @@ export const SleepSection = () => {
 
   const changeSound = (sound: typeof sounds[0]) => {
     setSelectedSound(sound);
-    if (isPlaying && audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.load();
-      audioRef.current.play();
+    if (audioRef.current) {
+      audioRef.current.src = sound.url;
+      if (isPlaying) {
+        audioRef.current.play().catch(error => {
+          console.error("Error playing audio:", error);
+        });
+      }
     }
   };
 
@@ -111,8 +131,6 @@ export const SleepSection = () => {
           {isPlaying ? "Pause" : "Play"}
         </Button>
       </div>
-
-      <audio ref={audioRef} src={selectedSound.url} loop />
     </Card>
   );
 };
